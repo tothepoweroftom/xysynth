@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>xysynth</title>
+    <script src="libraries/p5.js" type="text/javascript"></script>
+
+    <script src="libraries/p5.dom.js" type="text/javascript"></script>
+    <script src="libraries/p5.sound.js" type="text/javascript"></script>
+    <!-- include the jQuery and jQuery UI scripts -->
+    <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
+    <script src="bower_components/jQuery-ui-Slider-Pips/dist/jquery-ui-slider-pips.js"></script>
+    <link rel="stylesheet" href="bower_components/jQuery-ui-Slider-Pips/dist/jquery-ui-slider-pips.css">
+
+    <script src="XYModel.js" type="text/javascript"></script>
+
+    <script src="sketch.js" type="text/javascript"></script>
+
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            /* This centers our sketch horizontally. */
+            justify-content: center;
+            /* This centers our sketch vertically. */
+            align-items: center;
+            background-color: black;
+        }
+
+        canvas {
+            vertical-align: top;
+            left: 25%;
+            right: 25%
+        }
+        /*Chrome*/
+
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+            input[type='range'] {
+                overflow: hidden;
+                width: 150px;
+                -webkit-appearance: none;
+                background-color: #F1FEC6;
+            }
+            input[type='range']::-webkit-slider-runnable-track {
+                height: 18px;
+                -webkit-appearance: none;
+                color: #EB5160;
+                margin-top: -1px;
+            }
+            input[type='range']::-webkit-slider-thumb {
+                width: 20px;
+                -webkit-appearance: none;
+                height: 18px;
+                cursor: ew-resize;
+                background: #68EDC6;
+                box-shadow: -80px 0 0 80px #EB5160;
+            }
+        }
+        /** FF*/
+
+        input[type="range"]::-moz-range-progress {
+            background-color: #EB5160;
+        }
+
+        input[type="range"]::-moz-range-track {
+            background-color: #EB5160;
+        }
+        /* IE*/
+
+        input[type="range"]::-ms-fill-lower {
+            background-color: #68EDC6;
+        }
+
+        input[type="range"]::-ms-fill-upper {
+            background-color: #EB5160;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+
+</body>
+
+</html>
