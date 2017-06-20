@@ -28,6 +28,8 @@ function XYModel(cellsize, gridNumber, canvas) {
     this.J = 1.00;
 
     this.pause = false;
+    strokeWeight(0.5);
+
 
 }
 
@@ -92,8 +94,9 @@ XYModel.prototype.draw = function() {
               fill(c, 100, 80);
             }
 
-            var x = this.cellsize*0.5*cos(c);
-            var y = this.cellsize*0.5*sin(c);
+
+            var x = this.cellsize*sin(radians(c));
+            var y = this.cellsize*cos(radians(c));
 
             line(drawi[c][n]*this.cellsize, drawj[c][n]*this.cellsize, drawi[c][n]*this.cellsize + x, drawj[c][n]*this.cellsize +y);
             // this.context.ellipse(drawi[c][n] * this.cellsize, drawj[c][n] * this.cellsize, this.cellsize, this.cellsize, c, c+10, true);

@@ -7,7 +7,7 @@ function setup() {
   colorMode(HSB);
   canvas = createCanvas(windowWidth*0.5,windowWidth*0.5);
   noStroke();
-  XYModel = new XYModel(windowWidth*0.5*(1/32), 32, canvas);
+  XYModel = new XYModel(windowWidth*0.5*(1/64), 64, canvas);
   XYModel.randomInit();
   slider1 = createSlider(0.001,1.0,0.01, 0.001);
   slider2 = createSlider(-1.0,1.0,0.0, 0.01);
@@ -17,15 +17,15 @@ function setup() {
   var y = (windowHeight - height) / 2;
   canvas.position(x, y);
 
-  frameRate(24);
+  frameRate(30);
 
 }
 
 function draw() {
-  fill(0, 0.2);
+  fill(0, 0.4);
 rect(0,0, width, height);
   XYModel.draw();
- 
+
   XYModel.T = slider1.value();
  XYModel.J = slider2.value();
    XYModel.B = slider3.value();
