@@ -7,9 +7,16 @@ var button;
 var toneDrone;
 function setup() {
   colorMode(HSB);
-  canvas = createCanvas(windowWidth*0.5,windowWidth*0.5);
+  if (windowWidth < 960) {
+      canvas = createCanvas(windowWidth*0.85,windowWidth*0.85);
+      XYModel = new XYModel(windowWidth*0.85*(1/64), 64, canvas);
+
+}
+else {
+    canvas = createCanvas(windowWidth*0.5,windowWidth*0.5);
+        XYModel = new XYModel(windowWidth*0.5*(1/64), 64, canvas);
+}
   noStroke();
-  XYModel = new XYModel(windowWidth*0.5*(1/64), 64, canvas);
   XYModel.randomInit();
 
   toneDrone = new ToneDrone();
@@ -37,18 +44,28 @@ function setup() {
 
 function draw() {
   fill(0, 0.4);
-rect(0,0, width, height);
+  rect(0,0, width, height);
   XYModel.draw();
 
   XYModel.T = slider1.value();
- XYModel.J = slider2.value();
-   XYModel.B = slider3.value();
-   toneDrone.synth.harmonicity.value = map(slider1.value(), 0.001, 1.0, 1.0, 10.0);
-   toneDrone.synth.modulationIndex.value = map(slider1.value(), 0.001, 1.0, 1.0, 100.0);
+  XYModel.J = slider2.value();
+  XYModel.B = slider3.value();
+
+  adjustDrone(slider1.value(), slider2.value(), slider3.value());
+
 
 
 }
 
+function adjustDrone(val1, val2, val3) {
+  toneDrone.synth.harmonicity.value = map(val1, 0.001, 1.0, 1.0, 10.0);
+  toneDrone.synth.modulationIndex.value = map(val3, -1.0, 1.0, 1.0, 50.0);
+
+  toneDrone.dist.distortion = map(val1, 0.001, 1.0, 0.0, 1.0);
+  toneDrone.vibrato.depth.value = map(val2, -1.0, 1.0, 0.0, 1.0);
+
+  toneDrone.vibrato.frequency.value = map(val2, -1.0, 1.0, 1.0, 500.0);
+}
 function update_temp(){
   let gTval = parseFloat(document.getElementById('temp').value);
   XYModel.T = gTval;
