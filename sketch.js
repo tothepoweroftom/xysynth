@@ -9,9 +9,16 @@ var running = false;
 var context;
 
 function setup() {
+    // Disable scrolling.
+    document.ontouchmove = function(e) {
+        e.preventDefault();
+    }
+
     Tone.Transport.start();
-    context = new AudioContext();
-    slider1 = createSlider(0.001, 1.0, 0.01, 0.001);
+    Tone.Master.volume.value = -Infinity;
+    // Tone.Master.volume.rampTo(-1, 0.5);
+
+    slider1 = createSlider(0.001, 1.0, 0.1, 0.001);
     slider2 = createSlider(-1.0, 1.0, 0.0, 0.01);
     slider3 = createSlider(-1.0, 1.0, 0.0, 0.01);
     slider4 = createSlider(0.0, 100.0, 0.0, 1.0);
@@ -26,16 +33,16 @@ function setup() {
 
 
     if (windowWidth <= 960 && windowWidth !== 768) {
-      button.touchStarted(toggle);
+        button.touchStarted(toggle);
 
-        let spacing = windowHeight/20;
-        let margin = windowHeight/20;
+        let spacing = windowHeight / 20;
+        let margin = windowHeight / 20;
         canvas = createCanvas(windowWidth * 0.85, windowWidth * 0.85);
         XYModel = new XYModel(windowWidth * 0.85 * (2 / number), number, canvas);
         slider1.position(windowWidth / 2 - 100, windowHeight - 4 * spacing - margin);
         slider2.position(windowWidth / 2 - 100, windowHeight - 3 * spacing - margin);
         slider3.position(windowWidth / 2 - 100, windowHeight - 2 * spacing - margin);
-        slider4.position(windowWidth / 2 - 100  , windowHeight - spacing - margin);
+        slider4.position(windowWidth / 2 - 100, windowHeight - spacing - margin);
         button.position(windowWidth / 2 - 35, windowHeight - 5 * spacing - margin)
 
         var x = (windowWidth - width) / 2;
@@ -45,43 +52,43 @@ function setup() {
 
 
     } else if (windowWidth === 768) {
-      button.touchStarted(toggle);
+        button.touchStarted(toggle);
 
-      // console.log("Hit");
-      let spacing = windowHeight/20;
-      let margin = windowHeight/20;
-      canvas = createCanvas(windowWidth * 0.85, windowWidth * 0.85);
-      XYModel = new XYModel(windowWidth * 0.85 * (1 / number), number, canvas);
-      slider1.position(windowWidth / 4 - slider1.width * 0.5, windowHeight - 2 * spacing - margin);
-      slider2.position(windowWidth / 4 - slider1.width * 0.5, windowHeight - 1 * spacing - margin);
-      slider3.position(3*windowWidth / 4 - slider1.width * 0.5, windowHeight - 2 * spacing - margin);
-      slider4.position(3*windowWidth / 4 - slider1.width * 0.5, windowHeight - 1* spacing - margin);
-      button.position(windowWidth / 2 - 35, windowHeight - 5 * spacing - margin)
+        // console.log("Hit");
+        let spacing = windowHeight / 20;
+        let margin = windowHeight / 20;
+        canvas = createCanvas(windowWidth * 0.85, windowWidth * 0.85);
+        XYModel = new XYModel(windowWidth * 0.85 * (1 / number), number, canvas);
+        slider1.position(windowWidth / 4 - slider1.width * 0.5, windowHeight - 2 * spacing - margin);
+        slider2.position(windowWidth / 4 - slider1.width * 0.5, windowHeight - 1 * spacing - margin);
+        slider3.position(3 * windowWidth / 4 - slider1.width * 0.5, windowHeight - 2 * spacing - margin);
+        slider4.position(3 * windowWidth / 4 - slider1.width * 0.5, windowHeight - 1 * spacing - margin);
+        button.position(windowWidth / 2 - 35, windowHeight - 5 * spacing - margin)
 
-      var x = (windowWidth - width) / 2;
-      var y = (windowHeight - height) / 3;
-      canvas.position(x, y);
+        var x = (windowWidth - width) / 2;
+        var y = (windowHeight - height) / 3;
+        canvas.position(x, y);
 
     } else if (windowWidth >= 1300) {
-      button.mouseClicked(toggle);
+        button.mouseClicked(toggle);
 
-      let spacing = 40;
-      let margin = 100;
-      canvas = createCanvas(windowWidth * 0.4, windowWidth * 0.4);
-      XYModel = new XYModel(windowWidth * 0.4 * (1 / number), number, canvas);
-      slider1.position(slider1.width * 0.5, windowHeight / 2 - spacing);
-      slider2.position(slider1.width * 0.5, windowHeight / 2);
-      slider3.position(slider1.width * 0.5, windowHeight / 2 + spacing);
-      slider4.position(slider1.width * 0.5, windowHeight / 2 + 2*spacing);
-      button.position(slider1.width * 0.5, windowHeight / 2 + 3*spacing)
+        let spacing = 40;
+        let margin = 100;
+        canvas = createCanvas(windowWidth * 0.4, windowWidth * 0.4);
+        XYModel = new XYModel(windowWidth * 0.4 * (1 / number), number, canvas);
+        slider1.position(slider1.width * 0.5, windowHeight / 2 - spacing);
+        slider2.position(slider1.width * 0.5, windowHeight / 2);
+        slider3.position(slider1.width * 0.5, windowHeight / 2 + spacing);
+        slider4.position(slider1.width * 0.5, windowHeight / 2 + 2 * spacing);
+        button.position(slider1.width * 0.5, windowHeight / 2 + 3 * spacing)
 
-      var x = (windowWidth - width) / 2;
-      var y = (windowHeight - height) / 2;
-      canvas.position(x, y);
+        var x = (windowWidth - width) / 2;
+        var y = (windowHeight - height) / 2;
+        canvas.position(x, y);
 
     } else {
-      button.mouseClicked(toggle);
-      console.log("Clled");
+        button.mouseClicked(toggle);
+        console.log("Clled");
         let spacing = 40;
         let margin = 100
         canvas = createCanvas(windowWidth * 0.5, windowWidth * 0.5);
@@ -89,8 +96,8 @@ function setup() {
         slider1.position(slider1.width * 0.5, windowHeight / 2 - spacing);
         slider2.position(slider1.width * 0.5, windowHeight / 2);
         slider3.position(slider1.width * 0.5, windowHeight / 2 + spacing);
-        slider4.position(slider1.width * 0.5, windowHeight / 2 + 2*spacing);
-        button.position(slider1.width * 0.5, windowHeight / 2 + 3*spacing)
+        slider4.position(slider1.width * 0.5, windowHeight / 2 + 2 * spacing);
+        button.position(slider1.width * 0.5, windowHeight / 2 + 3 * spacing)
 
         var x = (windowWidth - width) / 2;
         var y = (windowHeight - height) / 2;
@@ -104,8 +111,8 @@ function setup() {
     toneDrone.connectComponents();
 
 
-    var div = createDiv('link').size(200,50);
-    div.position(windowWidth/2 - 50, windowHeight - 25);
+    var div = createDiv('link').size(200, 50);
+    div.position(windowWidth / 2 - 50, windowHeight - 25);
     div.style("font-family: 'Open Sans Condensed', sans-serif; color: white");
     div.html('<a href="http://tothepoweroftom.com">tothepoweroftom.com</a>');
 
@@ -119,35 +126,43 @@ function setup() {
 }
 
 function draw() {
-    fill(0, 0.4);
-    rect(0, 0, width, height);
-    XYModel.draw();
 
-    XYModel.T = slider1.value();
-    XYModel.J = slider2.value();
-    XYModel.B = slider3.value();
+    if (running) {
 
-    adjustDrone(slider1.value(), slider2.value(), slider3.value());
-    changeColor(slider4.value());
+        fill(0, 0.4);
+        rect(0, 0, width, height);
+        XYModel.draw();
 
+        XYModel.T = slider1.value();
+        XYModel.J = slider2.value();
+        XYModel.B = slider3.value();
+
+        adjustDrone(slider1.value(), slider2.value(), slider3.value());
+        changeColor(slider4.value());
+    }
 
 }
 
 function toggle() {
-  if (running) {
-    //Pause the system
-    button.html("Start");
-    running = false;
-    console.log(running);
-  } else if(!running) {
-    //Start the system
-    StartAudioContext(context, "#start");
-    button.html("Pause");
-    running = true;
-    console.log(running);
+    if (running) {
+        //Pause the system
+        button.html("Start");
+        Tone.Master.volume.rampTo(-Infinity, 0.5);
+
+        running = false;
+        console.log(running);
+    } else if (!running) {
+        //Start the system
+        StartAudioContext(Tone.context, "#start");
+        Tone.Master.volume.rampTo(-1, 0.5);
 
 
-  }
+        button.html("Pause");
+        running = true;
+        console.log(running);
+
+
+    }
 }
 
 function adjustDrone(val1, val2, val3) {
@@ -161,7 +176,7 @@ function adjustDrone(val1, val2, val3) {
 }
 
 function changeColor(val) {
-  XYModel.sat = val;
+    XYModel.sat = val;
 }
 
 function update_temp() {
