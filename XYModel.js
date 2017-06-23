@@ -30,7 +30,7 @@ function XYModel(cellsize, gridNumber, canvas) {
     this.pause = false;
     strokeWeight(0.5);
 
-    this.sat = 20;
+    this.sat = 0;
     this.bright = 100;
 
 

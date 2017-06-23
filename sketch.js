@@ -5,31 +5,47 @@ var T, J, B;
 var button;
 var toneDrone;
 var number = 100;
+var running = false;
 
 function setup() {
     Tone.Transport.start();
     slider1 = createSlider(0.001, 1.0, 0.01, 0.001);
     slider2 = createSlider(-1.0, 1.0, 0.0, 0.01);
     slider3 = createSlider(-1.0, 1.0, 0.0, 0.01);
-    slider4 = createSlider(0.0, 100.0, 30.0, 1.0);
+    slider4 = createSlider(0.0, 100.0, 0.0, 1.0);
+    button = createButton('Start');
+    button.style("color: white; background-color: black; font-family: 'Roboto', sans-serif; width: 75px; border: solid #ffffff 1px;");
+
+
     console.log(windowWidth);
     colorMode(HSB);
 
 
-    if (windowWidth <= 799 && windowWidth !== 768) {
+    if (windowWidth <= 960 && windowWidth !== 768) {
+      button.touchEnded(toggle);
+
         let spacing = windowHeight/20;
         let margin = windowHeight/20;
         canvas = createCanvas(windowWidth * 0.85, windowWidth * 0.85);
         XYModel = new XYModel(windowWidth * 0.85 * (2 / number), number, canvas);
-        slider1.position(windowWidth / 2 - slider1.width * 0.5, windowHeight - 4 * spacing - margin);
-        slider2.position(windowWidth / 2 - slider1.width * 0.5, windowHeight - 3 * spacing - margin);
-        slider3.position(windowWidth / 2 - slider1.width * 0.5, windowHeight - 2 * spacing - margin);
-        slider4.position(windowWidth / 2 - slider1.width * 0.5, windowHeight - spacing - margin);
+        button.position(windowWidth / 2 - slider1.width*1.5, windowHeight - 5 * spacing - margin);
+
+        slider1.position(windowWidth / 2 - slider1.width*1.5, windowHeight - 4 * spacing - margin);
+        slider2.position(windowWidth / 2 - slider1.width*1.5, windowHeight - 3 * spacing - margin);
+        slider3.position(windowWidth / 2 - slider1.width*1.5, windowHeight - 2 * spacing - margin);
+        slider4.position(windowWidth / 2 - slider1.width*1.5  , windowHeight - spacing - margin);
+        button.position(windowWidth / 2 - slider1.width*1.5, windowHeight - 5 * spacing - margin)
+
+        var x = (windowWidth - width) / 2;
+        var y = (windowHeight - height) / 4;
+        canvas.position(x, y);
 
 
 
     } else if (windowWidth === 768) {
-      console.log("Hit");
+      button.touchEnded(toggle);
+
+      // console.log("Hit");
       let spacing = windowHeight/20;
       let margin = windowHeight/20;
       canvas = createCanvas(windowWidth * 0.85, windowWidth * 0.85);
@@ -38,8 +54,32 @@ function setup() {
       slider2.position(windowWidth / 4 - slider1.width * 0.5, windowHeight - 1 * spacing - margin);
       slider3.position(3*windowWidth / 4 - slider1.width * 0.5, windowHeight - 2 * spacing - margin);
       slider4.position(3*windowWidth / 4 - slider1.width * 0.5, windowHeight - 1* spacing - margin);
+      button.position(windowWidth / 2 - button.width*0.5, windowHeight - 5 * spacing - margin)
+
+      var x = (windowWidth - width) / 2;
+      var y = (windowHeight - height) / 3;
+      canvas.position(x, y);
+
+    } else if (windowWidth >= 1300) {
+      button.mouseClicked(toggle);
+
+      let spacing = 40;
+      let margin = 100;
+      canvas = createCanvas(windowWidth * 0.4, windowWidth * 0.4);
+      XYModel = new XYModel(windowWidth * 0.4 * (1 / number), number, canvas);
+      slider1.position(slider1.width * 0.5, windowHeight / 2 - spacing);
+      slider2.position(slider1.width * 0.5, windowHeight / 2);
+      slider3.position(slider1.width * 0.5, windowHeight / 2 + spacing);
+      slider4.position(slider1.width * 0.5, windowHeight / 2 + 2*spacing);
+      button.position(slider1.width * 0.5, windowHeight / 2 + 3*spacing)
+
+      var x = (windowWidth - width) / 2;
+      var y = (windowHeight - height) / 2;
+      canvas.position(x, y);
 
     } else {
+      button.mouseClicked(toggle);
+
         let spacing = 40;
         let margin = 100
         canvas = createCanvas(windowWidth * 0.5, windowWidth * 0.5);
@@ -48,8 +88,11 @@ function setup() {
         slider2.position(slider1.width * 0.5, windowHeight / 2);
         slider3.position(slider1.width * 0.5, windowHeight / 2 + spacing);
         slider4.position(slider1.width * 0.5, windowHeight / 2 + 2*spacing);
+        button.position(slider1.width * 0.5, windowHeight / 2 + 3*spacing)
 
-
+        var x = (windowWidth - width) / 2;
+        var y = (windowHeight - height) / 2;
+        canvas.position(x, y);
     }
     // noStroke();
     noFill();
@@ -60,9 +103,7 @@ function setup() {
 
 
 
-    var x = (windowWidth - width) / 2;
-    var y = (windowHeight - height) / 2;
-    canvas.position(x, y);
+
 
     // frameRate(30);
 
@@ -87,14 +128,30 @@ function draw() {
 
 }
 
+function toggle() {
+  if (running) {
+    //Pause the system
+    button.html("Start");
+    running = false;
+    console.log(running);
+  } else if(!running) {
+    //Start the system
+    button.html("Pause");
+    running = true;
+    console.log(running);
+
+
+  }
+}
+
 function adjustDrone(val1, val2, val3) {
-    toneDrone.synth.harmonicity.value = map(val1, 0.001, 1.0, 1.0, 10.0);
+    toneDrone.synth.harmonicity.value = map(val2, -1.0, 1.0, 1.0, 10.0);
     toneDrone.synth.modulationIndex.value = map(val3, -1.0, 1.0, 1.0, 50.0);
 
     toneDrone.dist.distortion = map(val1, 0.001, 1.0, 0.10, 0.80);
     toneDrone.vibrato.depth.value = map(val2, -1.0, 1.0, 0.0, 1.0);
 
-    toneDrone.vibrato.frequency.value = map(val2, -1.0, 1.0, 1.0, 500.0);
+    toneDrone.vibrato.frequency.value = map(val3, -1.0, 1.0, 1.0, 500.0);
 }
 
 function changeColor(val) {
