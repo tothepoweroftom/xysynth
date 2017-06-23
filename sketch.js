@@ -53,8 +53,8 @@ function setup() {
 
         let spacing = windowHeight / 20;
         let margin = windowHeight / 20;
-        canvas = createCanvas(windowWidth * 0.85, windowWidth * 0.85);
-        XYModel = new XYModel(windowWidth * 0.85 * (2 / number), number, canvas);
+        canvas = createCanvas(windowWidth * 0.8, windowWidth * 0.75);
+        XYModel = new XYModel(windowWidth * 0.8 * (2 / number), number, canvas);
         slider1.position(windowWidth / 2 - 100, windowHeight - 4 * spacing - margin);
         slider2.position(windowWidth / 2 - 100, windowHeight - 3 * spacing - margin);
         slider3.position(windowWidth / 2 - 100, windowHeight - 2 * spacing - margin);
