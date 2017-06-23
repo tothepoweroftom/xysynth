@@ -10,9 +10,9 @@ var context;
 
 function setup() {
     // Disable scrolling.
-    document.ontouchmove = function(e) {
-        e.preventDefault();
-    }
+    // document.ontouchmove = function(e) {
+    //     e.preventDefault();
+    // }
 
     Tone.Transport.start();
     Tone.Master.volume.value = -Infinity;
@@ -34,6 +34,8 @@ function setup() {
 
     if (windowWidth <= 960 && windowWidth !== 768) {
         button.touchStarted(toggle);
+        button.mouseClicked(toggle);
+
 
         let spacing = windowHeight / 20;
         let margin = windowHeight / 20;
@@ -53,6 +55,8 @@ function setup() {
 
     } else if (windowWidth === 768) {
         button.touchStarted(toggle);
+        button.mouseClicked(toggle);
+
 
         // console.log("Hit");
         let spacing = windowHeight / 20;
