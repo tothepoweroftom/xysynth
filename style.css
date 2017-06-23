@@ -15,11 +15,7 @@ canvas {
 }
 /*Chrome*/
 
-h1 {
-    font-family: 'Amatic SC', cursive;
-    font-size: 3vw;
-    color: white;
-}
+
 
 h3 {
     font-family: 'Amatic SC', cursive;
@@ -51,6 +47,11 @@ h3 {
 }
 
 @media screen and (max-width: 600px) {
+  h1 {
+      font-family: 'Amatic SC', cursive;
+      font-size: 5vw;
+      color: white;
+  }
     input[type='range'] {
         overflow: hidden;
         width: 150px;
@@ -104,7 +105,12 @@ h3 {
     }
 }*/
 
-@media screen {
+@media screen and (min-width: 600px) {
+  h1 {
+      font-family: 'Amatic SC', cursive;
+      font-size: 4vw;
+      color: white;
+  }
     input[type='range'] {
         overflow: hidden;
         width: 150px;

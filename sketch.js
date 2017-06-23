@@ -6,9 +6,11 @@ var button;
 var toneDrone;
 var number = 100;
 var running = false;
+var context;
 
 function setup() {
     Tone.Transport.start();
+    context = new AudioContext();
     slider1 = createSlider(0.001, 1.0, 0.01, 0.001);
     slider2 = createSlider(-1.0, 1.0, 0.0, 0.01);
     slider3 = createSlider(-1.0, 1.0, 0.0, 0.01);
@@ -32,11 +34,11 @@ function setup() {
         XYModel = new XYModel(windowWidth * 0.85 * (2 / number), number, canvas);
         button.position(windowWidth / 2 - slider1.width*1.5, windowHeight - 5 * spacing - margin);
 
-        slider1.position(windowWidth / 2 - slider1.width*1.5, windowHeight - 4 * spacing - margin);
-        slider2.position(windowWidth / 2 - slider1.width*1.5, windowHeight - 3 * spacing - margin);
-        slider3.position(windowWidth / 2 - slider1.width*1.5, windowHeight - 2 * spacing - margin);
-        slider4.position(windowWidth / 2 - slider1.width*1.5  , windowHeight - spacing - margin);
-        button.position(windowWidth / 2 - slider1.width*1.5, windowHeight - 5 * spacing - margin)
+        slider1.position(windowWidth / 2 - slider1.width*0.5, windowHeight - 4 * spacing - margin);
+        slider2.position(windowWidth / 2 - slider1.width*0.5, windowHeight - 3 * spacing - margin);
+        slider3.position(windowWidth / 2 - slider1.width*0.5, windowHeight - 2 * spacing - margin);
+        slider4.position(windowWidth / 2 - slider1.width*0.5  , windowHeight - spacing - margin);
+        button.position(windowWidth / 2 - button.width*0.5, windowHeight - 5 * spacing - margin)
 
         var x = (windowWidth - width) / 2;
         var y = (windowHeight - height) / 4;
@@ -138,6 +140,7 @@ function toggle() {
     console.log(running);
   } else if(!running) {
     //Start the system
+    StartAudioContext(context);
     button.html("Pause");
     running = true;
     console.log(running);
