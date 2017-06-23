@@ -33,7 +33,7 @@ function setup() {
 
 
     if (windowWidth <= 960 && windowWidth !== 768) {
-        button.touchStarted(toggle);
+        // button.touchStarted(toggle);
         button.mouseClicked(toggle);
 
 
@@ -54,7 +54,7 @@ function setup() {
 
 
     } else if (windowWidth === 768) {
-        button.touchStarted(toggle);
+        // button.touchStarted(toggle);
         button.mouseClicked(toggle);
 
 
