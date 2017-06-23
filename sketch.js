@@ -7,15 +7,26 @@ var toneDrone;
 var number = 100;
 var running = false;
 var context;
+var info;
+
+function overlay() {
+	el = document.getElementById("overlay");
+	el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+}
 
 function setup() {
     // Disable scrolling.
     // document.ontouchmove = function(e) {
     //     e.preventDefault();
     // }
+    noStroke();
+    window.AudioContext = window.AudioContext||window.webkitAudioContext;
+    audioContext = new AudioContext();
+    Tone.setContext(audioContext);
 
     Tone.Transport.start();
     Tone.Master.volume.value = -Infinity;
+    // Tone.context.start();
     // Tone.Master.volume.rampTo(-1, 0.5);
 
     slider1 = createSlider(0.001, 1.0, 0.1, 0.001);
@@ -23,7 +34,10 @@ function setup() {
     slider3 = createSlider(-1.0, 1.0, 0.0, 0.01);
     slider4 = createSlider(0.0, 100.0, 0.0, 1.0);
     button = createButton('Start');
+    info = createButton('Info');
+    info.mouseClicked(overlay);
     button.style("color: white; background-color: black; font-family: 'Roboto', sans-serif; width: 70px; border: solid #ffffff 1px;");
+    info.style("color: white; background-color: black; font-family: 'Roboto', sans-serif; width: 70px; border: solid #ffffff 1px;");
 
 
     console.log(windowWidth);
@@ -45,7 +59,8 @@ function setup() {
         slider2.position(windowWidth / 2 - 100, windowHeight - 3 * spacing - margin);
         slider3.position(windowWidth / 2 - 100, windowHeight - 2 * spacing - margin);
         slider4.position(windowWidth / 2 - 100, windowHeight - spacing - margin);
-        button.position(windowWidth / 2 - 35, windowHeight - 5 * spacing - margin)
+        button.position(windowWidth / 2 - 100, windowHeight - 5 * spacing - margin)
+        info.position(windowWidth / 2 , windowHeight - 5 * spacing - margin)
 
         var x = (windowWidth - width) / 2;
         var y = (windowHeight - height) / 4;
@@ -68,6 +83,7 @@ function setup() {
         slider3.position(3 * windowWidth / 4 - slider1.width * 0.5, windowHeight - 2 * spacing - margin);
         slider4.position(3 * windowWidth / 4 - slider1.width * 0.5, windowHeight - 1 * spacing - margin);
         button.position(windowWidth / 2 - 35, windowHeight - 5 * spacing - margin)
+        button.position(windowWidth / 2 + 35, windowHeight - 5 * spacing - margin)
 
         var x = (windowWidth - width) / 2;
         var y = (windowHeight - height) / 3;
@@ -85,6 +101,7 @@ function setup() {
         slider3.position(slider1.width * 0.5, windowHeight / 2 + spacing);
         slider4.position(slider1.width * 0.5, windowHeight / 2 + 2 * spacing);
         button.position(slider1.width * 0.5, windowHeight / 2 + 3 * spacing)
+        info.position(slider1.width + 30, windowHeight / 2 + 3 * spacing)
 
         var x = (windowWidth - width) / 2;
         var y = (windowHeight - height) / 2;
@@ -95,13 +112,14 @@ function setup() {
         console.log("Clled");
         let spacing = 40;
         let margin = 100
-        canvas = createCanvas(windowWidth * 0.5, windowWidth * 0.5);
-        XYModel = new XYModel(windowWidth * 0.5 * (1 / number), number, canvas);
+        canvas = createCanvas(windowWidth * 0.45, windowWidth * 0.45);
+        XYModel = new XYModel(windowWidth * 0.45 * (1 / number), number, canvas);
         slider1.position(slider1.width * 0.5, windowHeight / 2 - spacing);
         slider2.position(slider1.width * 0.5, windowHeight / 2);
         slider3.position(slider1.width * 0.5, windowHeight / 2 + spacing);
         slider4.position(slider1.width * 0.5, windowHeight / 2 + 2 * spacing);
         button.position(slider1.width * 0.5, windowHeight / 2 + 3 * spacing)
+        info.position(slider1.width + 30, windowHeight / 2 + 3 * spacing)
 
         var x = (windowWidth - width) / 2;
         var y = (windowHeight - height) / 2;
@@ -110,6 +128,7 @@ function setup() {
     // noStroke();
     noFill();
     XYModel.randomInit();
+    XYModel.draw();
 
     toneDrone = new ToneDrone();
     toneDrone.connectComponents();

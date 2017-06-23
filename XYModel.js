@@ -94,7 +94,7 @@ XYModel.prototype.draw = function() {
             // if (n == 0) fill(c, 100, 80);
             if (n == 0){
               stroke(c, this.sat, this.bright);
-              fill(c, this.sat, this.bright);
+              // fill(c, this.sat, this.bright);
             }
 
 

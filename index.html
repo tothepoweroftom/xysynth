@@ -10,11 +10,15 @@
 
     <script src="libraries/p5.dom.js" type="text/javascript"></script>
     <script src="libraries/Tone.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
 
     <!-- include the jQuery and jQuery UI scripts -->
     <!-- <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
     <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css"> -->
+
     <link rel="stylesheet" href="style.css">
 
     <!-- <script src="bower_components/jQuery-ui-Slider-Pips/dist/jquery-ui-slider-pips.js"></script> -->
@@ -30,11 +34,20 @@
 </head>
 
 <body>
-    <h1>XY Model: Music From A Magnet</h1>
-
+  <center>
+    <h1 id="title">XY Atomic Music</h1>
     <!-- Trigger/Open The Modal -->
-
+  </center>
     <!-- The Modal -->
+    <div id="overlay">
+         <div>
+
+
+           <a  style="color: black;"href='#' onclick='overlay()'><i class="glyphicon glyphicon-remove white"></i></a>
+
+              <p>The XY Model is a model used in Condensed Matter Physics to better understand the physics of atoms on a 2d lattice. Each atom has a spin property which can point in any direction on the plane.</p>
+         </div>
+    </div>
 
 </body>
 
