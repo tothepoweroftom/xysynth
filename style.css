@@ -108,7 +108,7 @@ h3 {
 @media screen and (min-width: 600px) {
   h1 {
       font-family: 'Amatic SC', cursive;
-      font-size: 4vw;
+      font-size: 3vw;
       color: white;
   }
     input[type='range'] {
