@@ -1,90 +1,127 @@
-
 var XYModel;
 var canvas;
 var slider1, slider2, slider3;
-var T,J,B;
+var T, J, B;
 var button;
 var toneDrone;
+var number = 100;
+
 function setup() {
-  colorMode(HSB);
-  if (windowWidth < 960) {
-      canvas = createCanvas(windowWidth*0.85,windowWidth*0.85);
-      XYModel = new XYModel(windowWidth*0.85*(1/64), 64, canvas);
+    Tone.Transport.start();
+    slider1 = createSlider(0.001, 1.0, 0.01, 0.001);
+    slider2 = createSlider(-1.0, 1.0, 0.0, 0.01);
+    slider3 = createSlider(-1.0, 1.0, 0.0, 0.01);
+    slider4 = createSlider(0.0, 100.0, 30.0, 1.0);
+    console.log(windowWidth);
+    colorMode(HSB);
 
-}
-else {
-    canvas = createCanvas(windowWidth*0.5,windowWidth*0.5);
-        XYModel = new XYModel(windowWidth*0.5*(1/64), 64, canvas);
-}
-  noStroke();
-  XYModel.randomInit();
 
-  toneDrone = new ToneDrone();
-  toneDrone.connectComponents();
-  slider1 = createSlider(0.001,1.0,0.01, 0.001);
-  slider2 = createSlider(-1.0,1.0,0.0, 0.01);
-  slider3 = createSlider(-1.0,1.0,0.0, 0.01);
+    if (windowWidth <= 799 && windowWidth !== 768) {
+        let spacing = windowHeight/20;
+        let margin = windowHeight/20;
+        canvas = createCanvas(windowWidth * 0.85, windowWidth * 0.85);
+        XYModel = new XYModel(windowWidth * 0.85 * (2 / number), number, canvas);
+        slider1.position(windowWidth / 2 - slider1.width * 0.5, windowHeight - 4 * spacing - margin);
+        slider2.position(windowWidth / 2 - slider1.width * 0.5, windowHeight - 3 * spacing - margin);
+        slider3.position(windowWidth / 2 - slider1.width * 0.5, windowHeight - 2 * spacing - margin);
+        slider4.position(windowWidth / 2 - slider1.width * 0.5, windowHeight - spacing - margin);
 
-  button = createButton('click me');
-  button.position(19, 19);
-  button.mousePressed(play);
+
+
+    } else if (windowWidth === 768) {
+      console.log("Hit");
+      let spacing = windowHeight/20;
+      let margin = windowHeight/20;
+      canvas = createCanvas(windowWidth * 0.85, windowWidth * 0.85);
+      XYModel = new XYModel(windowWidth * 0.85 * (1 / number), number, canvas);
+      slider1.position(windowWidth / 4 - slider1.width * 0.5, windowHeight - 2 * spacing - margin);
+      slider2.position(windowWidth / 4 - slider1.width * 0.5, windowHeight - 1 * spacing - margin);
+      slider3.position(3*windowWidth / 4 - slider1.width * 0.5, windowHeight - 2 * spacing - margin);
+      slider4.position(3*windowWidth / 4 - slider1.width * 0.5, windowHeight - 1* spacing - margin);
+
+    } else {
+        let spacing = 40;
+        let margin = 100
+        canvas = createCanvas(windowWidth * 0.5, windowWidth * 0.5);
+        XYModel = new XYModel(windowWidth * 0.5 * (1 / number), number, canvas);
+        slider1.position(slider1.width * 0.5, windowHeight / 2 - spacing);
+        slider2.position(slider1.width * 0.5, windowHeight / 2);
+        slider3.position(slider1.width * 0.5, windowHeight / 2 + spacing);
+        slider4.position(slider1.width * 0.5, windowHeight / 2 + 2*spacing);
+
+
+    }
+    // noStroke();
+    noFill();
+    XYModel.randomInit();
+
+    toneDrone = new ToneDrone();
+    toneDrone.connectComponents();
+
+
 
     var x = (windowWidth - width) / 2;
-  var y = (windowHeight - height) / 2;
-  canvas.position(x, y);
+    var y = (windowHeight - height) / 2;
+    canvas.position(x, y);
 
-  frameRate(30);
+    // frameRate(30);
 
-  var loop = new Tone.Loop(function(time){
-  	//triggered every eighth note.
-    play();
-  }, "8n").start(0);
-  Tone.Transport.start();
+    var loop = new Tone.Loop(function(time) {
+        //triggered every eighth note.
+        play();
+    }, "2n").start("+0.50");
 }
 
 function draw() {
-  fill(0, 0.4);
-  rect(0,0, width, height);
-  XYModel.draw();
+    fill(0, 0.4);
+    rect(0, 0, width, height);
+    XYModel.draw();
 
-  XYModel.T = slider1.value();
-  XYModel.J = slider2.value();
-  XYModel.B = slider3.value();
+    XYModel.T = slider1.value();
+    XYModel.J = slider2.value();
+    XYModel.B = slider3.value();
 
-  adjustDrone(slider1.value(), slider2.value(), slider3.value());
-
+    adjustDrone(slider1.value(), slider2.value(), slider3.value());
+    changeColor(slider4.value());
 
 
 }
 
 function adjustDrone(val1, val2, val3) {
-  toneDrone.synth.harmonicity.value = map(val1, 0.001, 1.0, 1.0, 10.0);
-  toneDrone.synth.modulationIndex.value = map(val3, -1.0, 1.0, 1.0, 50.0);
+    toneDrone.synth.harmonicity.value = map(val1, 0.001, 1.0, 1.0, 10.0);
+    toneDrone.synth.modulationIndex.value = map(val3, -1.0, 1.0, 1.0, 50.0);
 
-  toneDrone.dist.distortion = map(val1, 0.001, 1.0, 0.0, 1.0);
-  toneDrone.vibrato.depth.value = map(val2, -1.0, 1.0, 0.0, 1.0);
+    toneDrone.dist.distortion = map(val1, 0.001, 1.0, 0.10, 0.80);
+    toneDrone.vibrato.depth.value = map(val2, -1.0, 1.0, 0.0, 1.0);
 
-  toneDrone.vibrato.frequency.value = map(val2, -1.0, 1.0, 1.0, 500.0);
+    toneDrone.vibrato.frequency.value = map(val2, -1.0, 1.0, 1.0, 500.0);
 }
-function update_temp(){
-  let gTval = parseFloat(document.getElementById('temp').value);
-  XYModel.T = gTval;
 
-
+function changeColor(val) {
+  XYModel.sat = val;
 }
-function update_field(){
-  let gBval = parseFloat(document.getElementById('field').value);
-  XYModel.B = gBval;
-  console.log(gBval);
 
-}
-function update_K(){
-  gJval = parseFloat(document.getElementById('correlation').value);
-  XYModel.J = gJval;
-  console.log(gJval);
+function update_temp() {
+    let gTval = parseFloat(document.getElementById('temp').value);
+    XYModel.T = gTval;
+
 
 }
 
-function play(){
-  toneDrone.play();
+function update_field() {
+    let gBval = parseFloat(document.getElementById('field').value);
+    XYModel.B = gBval;
+    console.log(gBval);
+
+}
+
+function update_K() {
+    gJval = parseFloat(document.getElementById('correlation').value);
+    XYModel.J = gJval;
+    console.log(gJval);
+
+}
+
+function play() {
+    toneDrone.play();
 }

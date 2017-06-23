@@ -11,9 +11,9 @@ function ToneDrone() {
             "type": "sine"
         },
         "modulationEnvelope": {
-            "attack": 0.5,
+            "attack": 0.05,
             "decay": 0,
-            "sustain": 10,
+            "sustain": 1.0,
             "release": 0.2,
         }
     });
@@ -24,14 +24,15 @@ function ToneDrone() {
     this.vibrato = new Tone.Vibrato(1, 0.1);
     this.pingPong = new Tone.PingPongDelay("4n", 0.7);
     this.reverb = new Tone.Freeverb(0.1, 500);
+    this.pitch = new Tone.PitchShift(0);
     this.vol = new Tone.Volume(0).toMaster();
 }
 
 ToneDrone.prototype.connectComponents = function() {
-    this.synth.chain(this.eq, this.vibrato, this.pingPong, this.reverb, this.dist, this.limiter, this.vol);
+    this.synth.chain(this.eq, this.pitch, this.vibrato, this.pingPong, this.reverb, this.dist, this.limiter, this.vol);
 }
 
 ToneDrone.prototype.play = function() {
-    this.synth.triggerAttackRelease("C1");
+    this.synth.triggerAttack("C1");
 
 }

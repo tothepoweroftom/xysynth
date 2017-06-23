@@ -30,6 +30,9 @@ function XYModel(cellsize, gridNumber, canvas) {
     this.pause = false;
     strokeWeight(0.5);
 
+    this.sat = 20;
+    this.bright = 100;
+
 
 }
 
@@ -90,8 +93,8 @@ XYModel.prototype.draw = function() {
         for (var n = 0; n < drawi[c].length; n++) {
             // if (n == 0) fill(c, 100, 80);
             if (n == 0){
-              stroke(c, 100, 80);
-              fill(c, 100, 80);
+              stroke(c, this.sat, this.bright);
+              fill(c, this.sat, this.bright);
             }
 
 
