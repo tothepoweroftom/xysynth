@@ -13,6 +13,11 @@ body {
 
 }
 
+p {
+  text-align: left;
+
+}
+
 .white, .white a {
   color: #fff;
 }
