@@ -18,6 +18,8 @@ function setup() {
 
 
     console.log(windowWidth);
+    var devicePixelRatio = window.devicePixelRatio || 1;
+    console.log(devicePixelRatio);
     colorMode(HSB);
 
 
