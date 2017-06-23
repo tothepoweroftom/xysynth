@@ -40,6 +40,9 @@ h3 {
   border: solid #ffffff 1px;
   text-decoration: none;
 }
+a {
+    color: white;
+}
 
 .btn:hover {
   background: #ed0000;
@@ -49,12 +52,12 @@ h3 {
 @media screen and (max-width: 600px) {
   h1 {
       font-family: 'Amatic SC', cursive;
-      font-size: 5vw;
+      font-size: 6vw;
       color: white;
   }
     input[type='range'] {
         overflow: hidden;
-        width: 150px;
+        width: 200px;
         -webkit-appearance: none;
         background-color: #212020;
     }

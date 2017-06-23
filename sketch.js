@@ -16,7 +16,7 @@ function setup() {
     slider3 = createSlider(-1.0, 1.0, 0.0, 0.01);
     slider4 = createSlider(0.0, 100.0, 0.0, 1.0);
     button = createButton('Start');
-    button.style("color: white; background-color: black; font-family: 'Roboto', sans-serif; width: 75px; border: solid #ffffff 1px;");
+    button.style("color: white; background-color: black; font-family: 'Roboto', sans-serif; width: 70px; border: solid #ffffff 1px;");
 
 
     console.log(windowWidth);
@@ -26,19 +26,17 @@ function setup() {
 
 
     if (windowWidth <= 960 && windowWidth !== 768) {
-      button.touchEnded(toggle);
+      button.touchStarted(toggle);
 
         let spacing = windowHeight/20;
         let margin = windowHeight/20;
         canvas = createCanvas(windowWidth * 0.85, windowWidth * 0.85);
         XYModel = new XYModel(windowWidth * 0.85 * (2 / number), number, canvas);
-        button.position(windowWidth / 2 - slider1.width*1.5, windowHeight - 5 * spacing - margin);
-
-        slider1.position(windowWidth / 2 - slider1.width*0.5, windowHeight - 4 * spacing - margin);
-        slider2.position(windowWidth / 2 - slider1.width*0.5, windowHeight - 3 * spacing - margin);
-        slider3.position(windowWidth / 2 - slider1.width*0.5, windowHeight - 2 * spacing - margin);
-        slider4.position(windowWidth / 2 - slider1.width*0.5  , windowHeight - spacing - margin);
-        button.position(windowWidth / 2 - button.width*0.5, windowHeight - 5 * spacing - margin)
+        slider1.position(windowWidth / 2 - 100, windowHeight - 4 * spacing - margin);
+        slider2.position(windowWidth / 2 - 100, windowHeight - 3 * spacing - margin);
+        slider3.position(windowWidth / 2 - 100, windowHeight - 2 * spacing - margin);
+        slider4.position(windowWidth / 2 - 100  , windowHeight - spacing - margin);
+        button.position(windowWidth / 2 - 35, windowHeight - 5 * spacing - margin)
 
         var x = (windowWidth - width) / 2;
         var y = (windowHeight - height) / 4;
@@ -47,7 +45,7 @@ function setup() {
 
 
     } else if (windowWidth === 768) {
-      button.touchEnded(toggle);
+      button.touchStarted(toggle);
 
       // console.log("Hit");
       let spacing = windowHeight/20;
@@ -58,7 +56,7 @@ function setup() {
       slider2.position(windowWidth / 4 - slider1.width * 0.5, windowHeight - 1 * spacing - margin);
       slider3.position(3*windowWidth / 4 - slider1.width * 0.5, windowHeight - 2 * spacing - margin);
       slider4.position(3*windowWidth / 4 - slider1.width * 0.5, windowHeight - 1* spacing - margin);
-      button.position(windowWidth / 2 - button.width*0.5, windowHeight - 5 * spacing - margin)
+      button.position(windowWidth / 2 - 35, windowHeight - 5 * spacing - margin)
 
       var x = (windowWidth - width) / 2;
       var y = (windowHeight - height) / 3;
@@ -83,7 +81,7 @@ function setup() {
 
     } else {
       button.mouseClicked(toggle);
-
+      console.log("Clled");
         let spacing = 40;
         let margin = 100
         canvas = createCanvas(windowWidth * 0.5, windowWidth * 0.5);
@@ -106,7 +104,10 @@ function setup() {
     toneDrone.connectComponents();
 
 
-
+    var div = createDiv('link').size(200,50);
+    div.position(windowWidth/2 - 50, windowHeight - 25);
+    div.style("font-family: 'Open Sans Condensed', sans-serif; color: white");
+    div.html('<a href="http://tothepoweroftom.com">tothepoweroftom.com</a>');
 
 
     // frameRate(30);
@@ -140,7 +141,7 @@ function toggle() {
     console.log(running);
   } else if(!running) {
     //Start the system
-    StartAudioContext(context);
+    StartAudioContext(context, "#start");
     button.html("Pause");
     running = true;
     console.log(running);
