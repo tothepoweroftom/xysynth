@@ -29,15 +29,7 @@ body {
      z-index: 1000;
 }
 
-#overlay div {
-     width:33%;
-     margin: 100px auto;
-     background-color: #111;
-     border:1px dotted #fff;
-     color: white;
-     padding:15px;
-     text-align:center;
-}
+
 
 canvas {
     vertical-align: top;
@@ -89,6 +81,15 @@ a {
 }
 
 @media screen and (max-width: 600px) {
+  #overlay div {
+       width:60%;
+       margin: 100px auto;
+       background-color: #111;
+       border:1px dotted #fff;
+       color: white;
+       padding:15px;
+       text-align:center;
+  }
   h1 {
       font-family: 'Amatic SC', cursive;
       font-size: 6vw;
@@ -148,6 +149,15 @@ a {
 }*/
 
 @media screen and (min-width: 600px) {
+  #overlay div {
+       width:33%;
+       margin: 100px auto;
+       background-color: #111;
+       border:1px dotted #fff;
+       color: white;
+       padding:15px;
+       text-align:center;
+  }
   h1 {
       font-family: 'Amatic SC', cursive;
       font-size: 3vw;

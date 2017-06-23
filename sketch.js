@@ -59,8 +59,8 @@ function setup() {
         slider2.position(windowWidth / 2 - 100, windowHeight - 3 * spacing - margin);
         slider3.position(windowWidth / 2 - 100, windowHeight - 2 * spacing - margin);
         slider4.position(windowWidth / 2 - 100, windowHeight - spacing - margin);
-        button.position(windowWidth / 2 - 100, windowHeight - 5 * spacing - margin)
-        info.position(windowWidth / 2 , windowHeight - 5 * spacing - margin)
+        button.position(windowWidth / 2 - 100, windowHeight - 6 * spacing - margin)
+        info.position(windowWidth / 2 +30, windowHeight - 6 * spacing - margin)
 
         var x = (windowWidth - width) / 2;
         var y = (windowHeight - height) / 4;
@@ -82,8 +82,8 @@ function setup() {
         slider2.position(windowWidth / 4 - slider1.width * 0.5, windowHeight - 1 * spacing - margin);
         slider3.position(3 * windowWidth / 4 - slider1.width * 0.5, windowHeight - 2 * spacing - margin);
         slider4.position(3 * windowWidth / 4 - slider1.width * 0.5, windowHeight - 1 * spacing - margin);
-        button.position(windowWidth / 2 - 35, windowHeight - 5 * spacing - margin)
-        button.position(windowWidth / 2 + 35, windowHeight - 5 * spacing - margin)
+        button.position(windowWidth / 2 - 80, windowHeight - 2 * spacing - margin)
+        info.position(windowWidth / 2 + 20, windowHeight - 2 * spacing - margin)
 
         var x = (windowWidth - width) / 2;
         var y = (windowHeight - height) / 3;
