@@ -129,7 +129,7 @@ function setup() {
     noFill();
     XYModel.randomInit();
     XYModel.draw();
-		StartAudioContext(Tone.context, '#button').then(function(){
+		StartAudioContext(Tone.context, '#start').then(function(){
 			//started
 			console.log("Context started");
 
