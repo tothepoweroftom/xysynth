@@ -21,7 +21,6 @@ function setup() {
     // }
 
     noStroke();
-    window.AudioContext = window.AudioContext||window.webkitAudioContext;
 
     Tone.Transport.start();
     Tone.Master.volume.value = -Infinity;
@@ -132,11 +131,13 @@ function setup() {
     XYModel.draw();
 		StartAudioContext(Tone.context, '#button').then(function(){
 			//started
-			toneDrone = new ToneDrone();
-			toneDrone.connectComponents();
 			console.log("Context started");
 
+
 		})
+
+		toneDrone = new ToneDrone();
+		toneDrone.connectComponents();
 
 
 
