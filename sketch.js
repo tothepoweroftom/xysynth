@@ -25,7 +25,6 @@ function setup() {
 
     Tone.Transport.start();
     Tone.Master.volume.value = -Infinity;
-		StartAudioContext(Tone.context, "#start");
 
     // Tone.context.start();
     // Tone.Master.volume.rampTo(-1, 0.5);
@@ -131,9 +130,14 @@ function setup() {
     noFill();
     XYModel.randomInit();
     XYModel.draw();
+		StartAudioContext(Tone.context, '#button').then(function(){
+			//started
+			toneDrone = new ToneDrone();
+			toneDrone.connectComponents();
+			console.log("Context started");
 
-    toneDrone = new ToneDrone();
-    toneDrone.connectComponents();
+		})
+
 
 
     var div = createDiv('link').size(200, 50);
