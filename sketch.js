@@ -19,13 +19,14 @@ function setup() {
     // document.ontouchmove = function(e) {
     //     e.preventDefault();
     // }
+
     noStroke();
     window.AudioContext = window.AudioContext||window.webkitAudioContext;
-    audioContext = new AudioContext();
-    Tone.setContext(audioContext);
 
     Tone.Transport.start();
     Tone.Master.volume.value = -Infinity;
+		StartAudioContext(Tone.context, "#start");
+
     // Tone.context.start();
     // Tone.Master.volume.rampTo(-1, 0.5);
 
@@ -34,6 +35,7 @@ function setup() {
     slider3 = createSlider(-1.0, 1.0, 0.0, 0.01);
     slider4 = createSlider(0.0, 100.0, 0.0, 1.0);
     button = createButton('Start');
+		button.id("start");
     info = createButton('Info');
     info.mouseClicked(overlay);
     button.style("color: white; background-color: black; font-family: 'Roboto', sans-serif; width: 70px; border: solid #ffffff 1px;");
@@ -176,7 +178,6 @@ function toggle() {
         console.log(running);
     } else if (!running) {
         //Start the system
-        StartAudioContext(Tone.context, "#start");
         Tone.Master.volume.rampTo(-1, 0.5);
 
 
