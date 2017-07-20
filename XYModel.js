@@ -4,8 +4,8 @@ function XYModel(cellsize, gridNumber, canvas) {
     this.fps = 0;
     this.t = 0;
     //Grid sizes and drawing
-    this.ni = gridNumber*0.5;
-    this.nj = gridNumber*0.5;
+    this.ni = gridNumber*0.1;
+    this.nj = gridNumber*0.1;
     this.cellsize = cellsize || 1;
     // this.grid = grid;
     // this.grid.width = cellsize * this.ni*4;
