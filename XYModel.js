@@ -98,8 +98,8 @@ XYModel.prototype.draw = function() {
             }
 
 
-            var x = this.cellsize*sin(radians(c));
-            var y = this.cellsize*cos(radians(c));
+            var x = 30*this.cellsize*sin(radians(c));
+            var y = 30*this.cellsize*cos(radians(c));
 
             line(drawi[c][n]*this.cellsize, drawj[c][n]*this.cellsize, drawi[c][n]*this.cellsize + x, drawj[c][n]*this.cellsize +y);
             // this.context.ellipse(drawi[c][n] * this.cellsize, drawj[c][n] * this.cellsize, this.cellsize, this.cellsize, c, c+10, true);
